@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="philvanzu.vescalert.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="#303F9F"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            >
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="44dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/titlebar"
+                android:layout_gravity="left"
+                android:layout_weight="0"/>
+
+            <TextView
+                android:id="@+id/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:text="VescAlert"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="#ffffff"></TextView>
+
+            <ImageButton
+                android:id="@+id/alarmsButton"
+                style="@android:style/Widget.Holo.Light.ImageButton"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="0dp"
+                android:background="#303F9F"
+                android:onClick="AlarmsButtonPressed"
+                android:scaleType="centerInside"
+                android:src="@drawable/alarms"
+ />
+
+            <ImageButton
+                android:id="@+id/settingsButton"
+                style="@android:style/Widget.Holo.Light.ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="0dp"
+                android:adjustViewBounds="true"
+                android:background="#303F9F"
+                android:cropToPadding="false"
+                android:onClick="ProfilesButtonPressed"
+                android:scaleType="centerInside"
+                android:src="@drawable/options" />
+
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+    <Button
+        android:id="@+id/startbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:onClick="ServiceButtonClicked"
+        android:text="Start Service"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/runtime_tv"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintLeft_toRightOf="@+id/startbutton"
+        app:layout_constraintTop_toTopOf="@+id/startbutton" />
+
+    <Spinner
+        android:id="@+id/spinnerBoardProfiles"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/startbutton"
+        app:layout_constraintLeft_toRightOf="@+id/textView12"
+        android:layout_marginLeft="8dp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="0dp"
+        android:text="Current Board"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spinnerBoardProfiles" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBoardProfiles"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginTop="16dp">
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="philvanzu.vescalert.MainActivity">
+
+
+
+
+
+
+            <TextView
+                android:id="@+id/alertIntro_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Temperature :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fault" />
+            <TextView
+                android:id="@+id/temp_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/alertIntro_textView" />
+
+            <TextView
+                android:id="@+id/vin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Voltage :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/alertIntro_textView" />
+
+            <TextView
+                android:id="@+id/vin_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/vin" />
+
+
+            <TextView
+                android:id="@+id/motorcurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="16dp"
+                android:text="MotorCurrent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/distance" />
+
+            <TextView
+                android:id="@+id/motorCurrent_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/motorcurrent" />
+            <TextView
+                android:id="@+id/batterycurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Battery Current :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/motorcurrent" />
+
+            <TextView
+                android:id="@+id/batteryCurrent_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/batterycurrent" />
+
+            <TextView
+                android:id="@+id/dutycycle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="DutyCycle"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/batterycurrent" />
+
+            <TextView
+                android:id="@+id/dutycycle_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/dutycycle" />
+
+            <TextView
+                android:id="@+id/rpm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Rpm"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dutycycle" />
+
+            <TextView
+                android:id="@+id/rpm_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/rpm" />
+
+
+            <TextView
+                android:id="@+id/amph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Amp / H :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rpm" />
+
+            <TextView
+                android:id="@+id/amph_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/amph" />
+
+
+            <TextView
+                android:id="@+id/watth_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/watth" />
+
+            <TextView
+                android:id="@+id/watth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Watt / H :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/amph" />
+
+
+
+
+            <TextView
+                android:id="@+id/tacho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="TachoMeter :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/watth" />
+
+            <TextView
+                android:id="@+id/tacho_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/tacho" />
+
+            <TextView
+                android:id="@+id/fault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="7dp"
+                android:text="Fault Code :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/fault_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/fault" />
+
+
+            <TextView
+                android:id="@+id/cellv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Cell Voltage :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vin" />
+
+            <TextView
+                android:id="@+id/cellv_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/cellv" />
+
+
+            <TextView
+                android:id="@+id/charge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Charge :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cellv" />
+
+            <TextView
+                android:id="@+id/charge_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/charge" />
+
+
+            <TextView
+                android:id="@+id/power"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Power :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/charge" />
+
+
+            <TextView
+                android:id="@+id/power_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/power"
+                android:layout_marginTop="0dp" />
+
+
+            <TextView
+                android:id="@+id/speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Speed :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/power" />
+
+            <TextView
+                android:id="@+id/speed_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/speed" />
+
+
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Distance"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/speed" />
+
+            <TextView
+                android:id="@+id/distance_tv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:layout_marginTop="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="160dp"
+                app:layout_constraintTop_toTopOf="@+id/distance" />
+
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>
