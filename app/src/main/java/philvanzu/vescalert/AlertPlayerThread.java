@@ -31,6 +31,8 @@ public class AlertPlayerThread extends HandlerThread implements TextToSpeech.OnI
 
     public static final String earcon_utterance_id = "VescAlert earcon";
     public static final String speech_utterance_id = "VescAlert speaking";
+    public static final String init_utterance_id = "ttsinit";
+
     public static final int ACTION_PLAY = 103248;
 
     private boolean playing;
@@ -76,26 +78,30 @@ public class AlertPlayerThread extends HandlerThread implements TextToSpeech.OnI
                         int duration = 2000;
                         long pattern[] = new long[]{0, duration};
 
+                        while(!ttsready)
+                        {
+                            sleep(50);
+                        }
+
+                        playing = true;
                         if(alert.vibrate) {
                             Vibrator v = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
                             v.vibrate(pattern, -1);
                         }
-                        if(ttsready)
-                        {
-                            playing = true;
-                            HashMap<String, String> params = new HashMap<String, String>();
-
-                            if(alert.playSound) {
-                                params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, earcon_utterance_id);
-                                tts.playEarcon(context.getResources().getResourceName(alert.monitoredValue.earcon), TextToSpeech.QUEUE_FLUSH, params);
-                                params.clear();
-                            }
-                            params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, speech_utterance_id);
-                            tts.speak(alert.toString(), TextToSpeech.QUEUE_ADD, params);
-                            while(playing) Thread.sleep(50);
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        AudioManager audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+                        if(alert.playSound) {
+                            params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, earcon_utterance_id);
+                            params.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(audio.STREAM_MUSIC));
+                            tts.playEarcon(context.getResources().getResourceName(alert.monitoredValue.earcon), TextToSpeech.QUEUE_FLUSH, params);
+                            params.clear();
                         }
-
+                        params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, speech_utterance_id);
+                        params.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(audio.STREAM_MUSIC));
+                        tts.speak(alert.toString(), TextToSpeech.QUEUE_ADD, params);
+                        while(playing) Thread.sleep(50);
                     }
+
                 }
                 catch(InterruptedException e){
                     if(tts.isSpeaking())tts.stop();
@@ -114,6 +120,10 @@ public class AlertPlayerThread extends HandlerThread implements TextToSpeech.OnI
             tts.setSpeechRate(0.9f); // set speech speed rate
             //tts.setVoice(tts.getVoice(QUALITY_VERY_HIGH));
 
+            HashMap<String, String> params = new HashMap<String, String>();
+            params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, init_utterance_id);
+            tts.playSilence (1,TextToSpeech.QUEUE_FLUSH, params);
+
             tts.setOnUtteranceProgressListener(
                     new UtteranceProgressListener() {
                         @Override
@@ -123,8 +133,8 @@ public class AlertPlayerThread extends HandlerThread implements TextToSpeech.OnI
 
                         @Override
                         public void onDone(String utteranceId) {
-                            if(utteranceId.equals(speech_utterance_id))
-                                playing = false;
+                            if(utteranceId.equals(speech_utterance_id)) playing = false;
+                            else if (utteranceId.equals(init_utterance_id))ttsready = true;
                         }
 
                         @Override
@@ -133,13 +143,7 @@ public class AlertPlayerThread extends HandlerThread implements TextToSpeech.OnI
                         }
                     }
             );
-
-            if (result == TextToSpeech.LANG_MISSING_DATA
-                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS", "Language is not supported");
-            } else {
-                ttsready = true;
-            }
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) Log.e("TTS", "Language is not supported");
         } else {
             Log.e("TTS", "Initilization Failed");
         }

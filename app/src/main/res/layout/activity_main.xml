@@ -48,9 +48,9 @@
             <ImageButton
                 android:id="@+id/alarmsButton"
                 style="@android:style/Widget.Holo.Light.ImageButton"
-                android:layout_width="56dp"
+                android:layout_width="44dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="0dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginRight="0dp"
                 android:layout_marginTop="0dp"
                 android:background="#303F9F"
@@ -65,14 +65,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginTop="0dp"
                 android:adjustViewBounds="true"
                 android:background="#303F9F"
                 android:cropToPadding="false"
                 android:onClick="ProfilesButtonPressed"
                 android:scaleType="centerInside"
-                android:src="@drawable/options" />
+                android:src="@drawable/profile2" />
 
 
         </LinearLayout>

@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements VescAlertService.
         }
     };
 
-    private static final int REQ_EDITPROFILES = 0;
-    private static final int REQ_EDITALERTS = 1;
+    private static final int REQ_EDITPROFILES = 125;
+    private static final int REQ_EDITALERTS = 251;
 
     boolean mBound;
     VescAlertService mBoundService;
@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements VescAlertService.
         Button button = (Button) v;
         Intent serviceAction = new Intent(MainActivity.this, VescAlertService.class);
         if (!VescAlertService.IS_SERVICE_RUNNING) {
+            serviceAction.putExtra("Profile", (Parcelable)selectedProfile);
             serviceAction.setAction(VescAlertService.START_ACTION);
             VescAlertService.IS_SERVICE_RUNNING = true;
             button.setText("Stop Service");
@@ -243,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements VescAlertService.
         if(status != null)
         {
             vin_tv.setText(Float.toString(status.v_in) + " V.");
-            temp_tv.setText(Float.toString(status.temp_mos1) + " C°.");
+            temp_tv.setText(Float.toString(status.temp_pcb) + " C°.");
             motorCurrent_tv.setText(Float.toString(status.current_motor) + " A.");
             batteryCurrent_tv.setText(Float.toString(status.current_in) + " A.");
             dutyCycle_tv.setText(Float.toString(status.duty_now) + " %");

@@ -79,6 +79,7 @@ public class VescAlertService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction().equals(START_ACTION))
         {
+            profile = intent.getExtras().getParcelable("Profile");
             Log.i(LOG_TAG, "Received Start Foreground Intent ");
             showNotification();
             //Toast.makeText(this, "Service Started!", Toast.LENGTH_SHORT).show();

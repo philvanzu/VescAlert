@@ -207,6 +207,7 @@ public class ListAlertsActivity extends AppCompatActivity
                         currentTab.AddOrUpdateAlert(freshAlert);
                         onAlertsModified();
                         SaveMonitoredValues();
+                        setResult(RESULT_OK);
                     }
                 }
                 break;
@@ -221,6 +222,7 @@ public class ListAlertsActivity extends AppCompatActivity
 
                         onAlertsModified();
                         SaveMonitoredValues();
+                        setResult(RESULT_OK);
                     }
                 }
                 break;
