@@ -168,42 +168,46 @@ public class VescStatus implements Parcelable {
     public float getDistance(BoardProfile profile)
     {
         if(profile == null) return 0;
-        return (((float)tachometer / (float)profile.motorPoles) * ((float)profile.motorPulley / (float)profile.wheelPulley) * (float)profile.wheelDiameter * 3.1416f) / 1000000f;
+        return ((float)tachometer / (float)profile.motorPoles) * profile.getTransmission() * ((float)profile.wheelDiameter/1000000) * 3.1416f;
     }
 
     public float getSpeed(BoardProfile profile)
     {
         if(profile == null) return 0;
-        return (((float)rpm / (float)profile.motorPoles) * ((float)profile.motorPulley / (float)profile.wheelPulley) * (float)profile.wheelDiameter * 3.1416f * 60 ) / 1000000f;
+        return (((float)rpm / (float)profile.motorPoles) * 60)              // rotations per hour
+                * profile.getTransmission()                                 // transmission factor
+                * ((float)profile.wheelDiameter/1000000) * 3.1416f;         // wheel circumference in km
+
     }
 
+    public static final float CELL_MAX = 4.1f;
+    public static final float CELL_NOMINAL_HIGH = 3.9f;
+    public static final float CELL_NOMINAL_LOW = 3.6f;
+    public static final float CELL_MIN = 3.2f;
+    public static final float CELL_HIGH_RANGE = 0.2f;
+    public static final float CELL_MID_RANGE = 0.3f;
+    public static final float CELL_LOW_RANGE = 0.4f;
+    
     public int getBatteryCharge(BoardProfile profile)
     {
         if(profile == null) return 0;
         float ccv = v_in / profile.cellsInSerie;
-        float cellmax = 4.1f;
-        float cellnominalhigh = 3.9f;
-        float cellnominallow = 3.6f;
-        float cellmin = 3.2f;
 
-        if(ccv >= cellmax) return 100;
-        else if (ccv > cellnominalhigh)
+        if(ccv >= CELL_MAX) return 100;
+        else if (ccv > CELL_NOMINAL_HIGH) //battery charge between 100% and 80%
         {
-            float dif = cellmax - ccv;
-            float prog = (dif / 0.2f) * 20;
-            return (int)(100 - prog);
+            float progress = ((CELL_MAX - ccv) / CELL_HIGH_RANGE) * 20;
+            return (int)(100 - progress);
         }
-        else if (ccv > cellnominallow)
+        else if (ccv > CELL_NOMINAL_LOW) //battery charge between 80% and 15%
         {
-            float dif = cellnominalhigh - ccv;
-            float prog = 20f + ((dif / 0.3f) * 65f);
-            return (int)(100 - prog);
+            float progress = 20f + (((CELL_NOMINAL_HIGH - ccv) / CELL_MID_RANGE) * 65f);
+            return (int)(100 - progress);
         }
-        else if(ccv > cellmin)
+        else if(ccv > CELL_MIN)  //battery charge between 15% and 0%
         {
-            float dif = cellnominallow - ccv;
-            float prog = 85f + ((dif / 0.6f) * 15f);
-            return (int)(100 - prog);
+            float progress = 85f + (((CELL_NOMINAL_LOW - ccv) / CELL_LOW_RANGE) * 15f);
+            return (int)(100 - progress);
         }
         return 0;
     }

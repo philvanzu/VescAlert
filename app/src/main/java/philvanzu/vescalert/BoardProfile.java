@@ -24,6 +24,8 @@ public class BoardProfile implements Parcelable, Serializable {
     public int wheelDiameter;
     public int motorPoles;
 
+    private Float transmission;
+
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public BoardProfile createFromParcel(Parcel in) {
             return new BoardProfile(in);
@@ -63,5 +65,11 @@ public class BoardProfile implements Parcelable, Serializable {
         dest.writeInt(motorPulley);
         dest.writeInt(wheelDiameter);
         dest.writeInt(motorPoles);
+    }
+
+    public float getTransmission()
+    {
+        if(transmission == null)transmission = (float)motorPulley / (float)wheelPulley;
+        return transmission;
     }
 }

@@ -181,16 +181,16 @@ public class MonitoredValue implements Parcelable, Serializable
             switch(name)
             {
                 case "Battery Charge": {
-                    if( status.current_in < 5f && status.getBatteryCharge(profile) < alert.threshold )
+                    if( status.current_in < 1f && status.getBatteryCharge(profile) < alert.threshold )
                         trigger = true;
                     break;
                 }
                 case "Battery Voltage" : {
-                    if( status.current_in < 5f && status.v_in < alert.threshold ) trigger = true;
+                    if( status.current_in < 1f && status.v_in < alert.threshold ) trigger = true;
                     break;
                 }
                 case "Cell Voltage":
-                    if( status.current_in < 5f && status.getCellVoltage(profile) < alert.threshold ) trigger = true;
+                    if( status.current_in < 1f && status.getCellVoltage(profile) < alert.threshold ) trigger = true;
                     break;
 
                 case "VESC Temperature" : {
